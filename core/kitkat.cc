@@ -39,7 +39,7 @@ public:
 
     if(!image.data )
     {
-        printf( " No image data \n " );
+        cout<<" No image data"<<endl;
         return (false);
     }
 
