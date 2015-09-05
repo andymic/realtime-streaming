@@ -7,48 +7,58 @@
 //============================================================================
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui/highgui_c.h>
+#include <fstream>
 
+using namespace std;
 using namespace cv;
 
-int main( int argc, char** argv )
+class Opencv
 {
-    // argv[1] - whaere the image is located
-    char* imagePath = argv[1];
+public:
+  Opencv(){}
+  bool DoesFileExist(const char *fileName)
+  {
+      ifstream infile(fileName);
+      return infile.good();
+  }
+
+  int ShowImage(const char * path)
+  {
+
+    if(!DoesFileExist(path))
+    {
+      cout<<"File not found"<<endl;
+      return (false);
+    }
 
     // create a MAT object for input image
     Mat image;
 
     // load an image
-    image = imread( imagePath, 1 );
+    image = imread( path, CV_LOAD_IMAGE_COLOR );
 
-    if( argc != 2 || !image.data )
+    if(!image.data )
     {
         printf( " No image data \n " );
-        return -1;
+        return (false);
     }
 
-    // create a MAT object for gray image
-    Mat gray_image;
+    namedWindow( path, 1 );
 
-    // convert to Greyscale format
-    // cvtColor( image, gray_image, CV_BGR2GRAY );
-    cvtColor( image, gray_image, COLOR_BGR2GRAY );
-
-    // save the transformed image to a file
-    imwrite( "../images/GrayImage.jpg", gray_image );
-
-    // creates two windows
-    namedWindow( imagePath, CV_WINDOW_AUTOSIZE );
-    namedWindow( "Gray image", CV_WINDOW_AUTOSIZE );
 
     // imshow() displays an image in the specified window. 
     // If the window was created with the CV_WINDOW_AUTOSIZE flag, 
     // the image is shown with its original size
-    imshow( imagePath, image );
-    imshow( "Gray image", gray_image );
-
-    // wait for key press
+    imshow( path, image );
     waitKey(0);
+  }
+  ~Opencv(){}
+};
 
+
+int main( int argc, char** argv )
+{
+  Opencv * c = new Opencv();
+  c->ShowImage("");
     return 0;
 }

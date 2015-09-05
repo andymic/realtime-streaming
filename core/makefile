@@ -5,7 +5,7 @@ CC = g++
 #  -g    adds debugging information to the executable file
 #  -Wall turns on most, but not all, compiler warnings
 CFLAGS  = -g -Wall
-
+RFLAGS  = -Wall 
 # define any directories containing header files other than /usr/include
 INCLUDES = -I/usr/local/include/opencv
 # define library paths in addition to /usr/lib
@@ -30,8 +30,8 @@ SRCS = kikat.cc
 OBJS = $(SRCS:.cc=.o)
 
 # define the executable file 
-MAIN = kit
-DEBUG = D
+MAIN = K
+RELEASE = R
 #
 # The following part of the makefile is generic; it can be used to 
 # build any executable just by changing the definitions above and by
@@ -41,13 +41,13 @@ DEBUG = D
 .PHONY: depend clean
 
 all:$(MAIN)
-	@echo  Simple compiler named kit has been compiled
+	@echo  Simple compiler named kit has been compiled 
 
-$(MAIN): $(OBJS) 
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS) $(LFLAGS) $(LIBS)
+$(MAIN): $(OBJS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS) $(LFLAGS) $(LIBS) 
 
-$(DEBUG): $(OBJS) 
-	$(CC) -g $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS) $(LFLAGS) $(LIBS)
+$(RELEASE): $(OBJS)
+	$(CC) $(RFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS) $(LFLAGS) $(LIBS) 
 
 # this is a suffix replacement rule for building .o's from .c's
 # it uses automatic variables $<: the name of the prerequisite of
