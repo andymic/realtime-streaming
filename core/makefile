@@ -7,7 +7,7 @@ CC = g++
 CFLAGS  = -g -Wall
 RFLAGS  = -Wall 
 # define any directories containing header files other than /usr/include
-INCLUDES = -I/usr/local/include/opencv
+INCLUDES = -I/usr/local/include/opencv -I/home/andy/Documents/Projects/kitkat/core/client
 # define library paths in addition to /usr/lib
 LFLAGS = -L/usr/local/lib 
 
@@ -17,7 +17,8 @@ LFLAGS = -L/usr/local/lib
 LIBS = -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml -lopencv_videoio -lopencv_features2d -lopencv_calib3d -lopencv_objdetect -lopencv_flann -lopencv_imgcodecs
 
 # define the C++ source files
-SRCS = kitkat.cc
+CLIENT_PATH = /home/andy/Documents/Projects/kitkat/core/client
+SRCS = kitkat.cc $(CLIENT_PATH)/kitkatclient.cc
 
 # define the C object files 
 #

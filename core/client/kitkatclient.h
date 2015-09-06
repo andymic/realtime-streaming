@@ -5,14 +5,16 @@
 // Copyright   : Use this code at your own risk...your pants may fall off!
 // Description : OpenCV experimentation in C++, Ansi-style
 //============================================================================
-#include <../client/kitkatclient.h>
-#define img_path "/home/andy/Pictures/rockon.jpg"
-#define vid_path "/home/andy/Videos/Moving Takahashi-HD.mp4"
+#pragma once
 
+#include <string>
 
-int main( int argc, char** argv )
-{
-    KitKatClient * k = new KitKatClient();
-    k->ReadVideo(vid_path);
-    return 0;
-}
+class KitKatClient{
+private:
+	bool FileExist(const char *filename);
+public:
+	KitKatClient(){}
+	int ShowImage(const char * path);
+	int ReadVideo(const std::string & filename);
+	~KitKatClient(){}
+};
