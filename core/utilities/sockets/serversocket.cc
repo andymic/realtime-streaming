@@ -9,8 +9,13 @@
 #include <iostream>
 #include <unistd.h> //read & write g++
 #include <cstdlib>
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui/highgui_c.h>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/videoio/videoio.hpp>
 
 using namespace std;
+using namespace cv;
 
 ServerSocket::ServerSocket()
 {
@@ -75,10 +80,9 @@ void ServerSocket::Listen()
       
       if (pid == 0)
       {
-         cout<<"New child process created id: "<<pid<<endl;
-         close(sockfd);
-         EchoClient(newsockfd);
-         exit(0);
+         cout<<"Existing Process id: "<<pid<<endl;       
+         BroadcastStream(newsockfd);
+         //exit(0);
       }
       else
       {
@@ -87,6 +91,24 @@ void ServerSocket::Listen()
    }
 }
 
+void ServerSocket::BroadcastStream(int socket)
+{
+   uchar frame_data[1024];
+
+   while(read(socket, frame_data, 1024))
+   {
+      //Mat img(Size(720, 720), CV_8UC3, frame_data);
+      cout<<frame_data<<endl;
+      //imshow("Kitkat Server", img);
+
+        //following up each draw with waitKey so that
+        // highgui has time to process the draw request
+        //waitKey(30);
+
+        //if(key == 'q')
+          //return 1;
+   }
+}
 void ServerSocket::EchoClient(int socket)
 {
    int mes;
@@ -110,4 +132,9 @@ void ServerSocket::EchoClient(int socket)
       cerr<<"ERROR writing to socket";
       exit(1);
    }
+}
+
+ServerSocket::~ServerSocket()
+{
+   close(sockfd);
 }

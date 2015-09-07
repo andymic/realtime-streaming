@@ -77,32 +77,46 @@ int KitKatClient::ReadVideo(const string & filename)
     return 1;
 }
 
-// vector<Mat> KitKatClient::GetVideoFrames(const string & filename)
-// {
-// 	if(FileExist(filename.c_str()))
-//     {
-//       const char * window_name = "kitkat";
-//       VideoCapture capture(filename);
- 
-//       namedWindow(window_name, WINDOW_KEEPRATIO);
-//       Mat frame;
+bool KitKatClient::SendVideoToServer(const char * addr, const string & filepath, int port)
+{
+	if(FileExist(filepath.c_str()))
+    {
+      VideoCapture capture(filepath);
+      Mat frame;
+      ClientSocket * cs = new ClientSocket(addr, port);
+      cs->Connect();
 
-//       vector<Mat> frames;
+      int frame_len;
 
-//       for(;;)
-//       {
-//         capture >> frame;
-//         if(frame.empty())
-//           break;
+      for(;;)
+      {
+        capture >> frame;
+        if(frame.empty())
+          break;
 
-//       	frames.push_back(frame);
+        
+        // if(frame.isContinuous())
+        // {
+        //   size_t sizeInBytes = frame.total() * frame.elemsize();
+        // }
+        frame = (frame.reshape(0,1)); 
 
-//       }
-//     }
-//     else
-//     {
-//       cout<<"File does not exist"<<endl;
-//       return NULL;
-//     }
-//     return frames;
-// }
+        frame_len =frame.total()*frame.elemSize();
+
+        cs->SendStream(frame, frame_len);
+      }
+    }
+    else
+    {
+      cout<<"File does not exist"<<endl;
+      return false;
+    }
+    return true;
+}
+
+void KitKatClient::SendMessage(const char * addr, int port, const char * message)
+{
+   ClientSocket * cs = new ClientSocket(addr, port);
+   cs->Connect();
+   cs->SendMessage(message);
+}

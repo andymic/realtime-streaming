@@ -9,6 +9,12 @@
 #include <netdb.h>
 #include <netinet/in.h>
 #include <string.h>
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui/highgui_c.h>
+#include <opencv2/imgcodecs.hpp>
+#include <opencv2/videoio/videoio.hpp>
+
+using namespace cv;
 
 class ClientSocket{
 private:
@@ -20,6 +26,7 @@ public:
 	bool Connect();
 	int SendMessage(const char * buffer);
 	int ReadResponse();
+	int SendStream(Mat frame, int len);
 	~ClientSocket(){}
 };
 

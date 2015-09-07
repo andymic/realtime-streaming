@@ -4,7 +4,7 @@ CC = g++
 # compiler flags:
 #  -g    adds debugging information to the executable file
 #  -Wall turns on most, but not all, compiler warnings
-CFLAGS  = -g -Wall
+CFLAGS  = -g -Wall -std=c++11 -pthread 
 RFLAGS  = -Wall 
 PROJECT_PATH = /home/andy/Documents/Projects/kitkat/core
 # define any directories containing header files other than /usr/include

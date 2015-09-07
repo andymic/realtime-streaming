@@ -6,9 +6,8 @@
 // Description : OpenCV experimentation in C++, Ansi-style
 //============================================================================
 #pragma once
-
-#include <string>
-#include <vector>
+#include <../utilities/sockets/clientsocket.h>
+#include <string.h>
 
 class KitKatClient{
 private:
@@ -17,6 +16,7 @@ public:
 	KitKatClient(){}
 	int ShowImage(const char * path);
 	int ReadVideo(const std::string & filename);
-	//vector<Mat> KitKatClient::GetVideoFrames(const string & filename);
+	bool SendVideoToServer(const char * addr, const std::string & filepath, int port);
+	void SendMessage(const char * adr, int port, const char * message);
 	~KitKatClient(){}
 };

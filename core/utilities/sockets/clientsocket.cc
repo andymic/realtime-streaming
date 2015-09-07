@@ -20,7 +20,7 @@ ClientSocket::ClientSocket(const char * addr, int port)
 
 	if(server == NULL)
 	{
-		cerr<<"Error, host not found";
+		cerr<<"ERROR, host not found";
 		exit(1);
 	}
 
@@ -40,7 +40,7 @@ bool ClientSocket::Connect()
 {
 	if (connect(sockfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0)
     {
-       cerr<<"Error connecting";
+       cerr<<"ERROR connecting";
        return false;
     }
 
@@ -55,6 +55,7 @@ int ClientSocket::SendMessage(const char * buffer)
      if (mes < 0)
      {
         cerr<<"ERROR writing to socket";
+
         return (false);
      }
 
@@ -70,7 +71,7 @@ int ClientSocket::ReadResponse()
 
 	if(res < 0)
 	{
-		cerr<<"Error while trying to read from socket";
+		cerr<<"ERROR while trying to read from socket";
 		return (false);
 	}
 	else
@@ -79,4 +80,19 @@ int ClientSocket::ReadResponse()
 	}
 
 	return (true);
+}
+
+int ClientSocket::SendStream(Mat frame, int len)
+{
+	/* Send frame to the server */
+     int mes = write(sockfd, frame.data, len);
+     
+
+     if (mes < 0)
+     {
+        cerr<<"ERROR writing to socket";
+        return (false);
+     }
+
+     return (true);
 }

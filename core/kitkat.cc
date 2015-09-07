@@ -6,15 +6,46 @@
 // Description : OpenCV experimentation in C++, Ansi-style
 //============================================================================
 #include <../client/kitkatclient.h>
-#include <../utilities/sockets/clientsocket.h>
-#include <../utilities/sockets/serversocket.h>
+#include <../server/kitkatserver.h>
+#include <thread>
+#include <chrono> 
+#include <string>
+
 #define img_path "/home/andy/Pictures/rockon.jpg"
 #define vid_path "/home/andy/Videos/Moving Takahashi-HD.mp4"
 
+using namespace std;
 
+void LaunchServer()
+{
+	cout<<"Kitkatserver starting..."<<endl;
+	KitKatServer * s = new KitKatServer();
+	s->Listen();
+}
+
+void LaunchClient()
+{
+	KitKatClient * k = new KitKatClient();
+	// for(int i=0; i<100; i++)
+	// {
+
+	// 	k->SendMessage("0", 5001, "Test message from client");
+	// 	this_thread::sleep_for (chrono::seconds(1));
+	// }
+    k->SendVideoToServer("0", vid_path, 5001);
+}
 int main( int argc, char** argv )
 {
-    // KitKatClient * k = new KitKatClient();
-    // k->ReadVideo(vid_path);
+
+     //;
+	string arg = argv[1];
+     //thread t2(LaunchClient);
+	if(arg =="server")
+		LaunchServer();
+	else if(arg =="client")
+     	LaunchClient();
+    else
+    	cout<<"Please specify whether to start server or client"<<endl;
+
     return 0;
 }
