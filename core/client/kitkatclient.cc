@@ -77,32 +77,32 @@ int KitKatClient::ReadVideo(const string & filename)
     return 1;
 }
 
-vector<Mat> KitKatClient::GetVideoFrames(const string & filename)
-{
-	if(FileExist(filename.c_str()))
-    {
-      const char * window_name = "kitkat";
-      VideoCapture capture(filename);
+// vector<Mat> KitKatClient::GetVideoFrames(const string & filename)
+// {
+// 	if(FileExist(filename.c_str()))
+//     {
+//       const char * window_name = "kitkat";
+//       VideoCapture capture(filename);
  
-      namedWindow(window_name, WINDOW_KEEPRATIO);
-      Mat frame;
+//       namedWindow(window_name, WINDOW_KEEPRATIO);
+//       Mat frame;
 
-      vector<Mat> frames;
+//       vector<Mat> frames;
 
-      for(;;)
-      {
-        capture >> frame;
-        if(frame.empty())
-          break;
+//       for(;;)
+//       {
+//         capture >> frame;
+//         if(frame.empty())
+//           break;
 
-      	frames.push_back(frame);
+//       	frames.push_back(frame);
 
-      }
-    }
-    else
-    {
-      cout<<"File does not exist"<<endl;
-      return NULL;
-    }
-    return frames;
-}
+//       }
+//     }
+//     else
+//     {
+//       cout<<"File does not exist"<<endl;
+//       return NULL;
+//     }
+//     return frames;
+// }

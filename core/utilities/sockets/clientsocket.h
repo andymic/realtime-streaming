@@ -23,11 +23,11 @@ public:
 	~ClientSocket(){}
 };
 
-int main()
-{
-	ClientSocket * cs = new ClientSocket("0", 5001);
-	cs->Connect();
-	cs->SendMessage("This is a test from the client");
-	cs->ReadResponse();
-  return 0;
-}
+// int main()
+// {
+// 	ClientSocket * cs = new ClientSocket("0", 5001);
+// 	cs->Connect();
+// 	cs->SendMessage("This is a test from the client");
+// 	cs->ReadResponse();
+//   return 0;
+// }

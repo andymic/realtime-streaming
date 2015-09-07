@@ -17,6 +17,6 @@ public:
 	KitKatClient(){}
 	int ShowImage(const char * path);
 	int ReadVideo(const std::string & filename);
-	vector<Mat> KitKatClient::GetVideoFrames(const string & filename);
+	//vector<Mat> KitKatClient::GetVideoFrames(const string & filename);
 	~KitKatClient(){}
 };

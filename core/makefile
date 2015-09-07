@@ -6,8 +6,9 @@ CC = g++
 #  -Wall turns on most, but not all, compiler warnings
 CFLAGS  = -g -Wall
 RFLAGS  = -Wall 
+PROJECT_PATH = /home/andy/Documents/Projects/kitkat/core
 # define any directories containing header files other than /usr/include
-INCLUDES = -I/usr/local/include/opencv -I/home/andy/Documents/Projects/kitkat/core/client -I/home/andy/Documents/Projects/kitkat/core/server
+INCLUDES = -I/usr/local/include/opencv -I$(PROJECT_PATH)/client -I$(PROJECT_PATH)/server -I$(PROJECT_PATH)/utilities/sockets
 # define library paths in addition to /usr/lib
 LFLAGS = -L/usr/local/lib 
 
@@ -17,10 +18,10 @@ LFLAGS = -L/usr/local/lib
 LIBS = -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml -lopencv_videoio -lopencv_features2d -lopencv_calib3d -lopencv_objdetect -lopencv_flann -lopencv_imgcodecs
 
 # define the C++ source files
-CLIENT_PATH = /home/andy/Documents/Projects/kitkat/core/client
-SERVER_PATH = /home/andy/Documents/Projects/kitkat/core/server
-
-SRCS = kitkat.cc $(CLIENT_PATH)/kitkatclient.cc $(SERVER_PATH)/kitkatserver.cc
+CLIENT_PATH = $(PROJECT_PATH)/client
+SERVER_PATH = $(PROJECT_PATH)/server
+SOCKETS_UTILITY_PATH = $(PROJECT_PATH)/utilities/sockets
+SRCS = kitkat.cc $(CLIENT_PATH)/kitkatclient.cc $(SERVER_PATH)/kitkatserver.cc $(SOCKETS_UTILITY_PATH)/clientsocket.cc $(SOCKETS_UTILITY_PATH)/serversocket.cc 
 
 # define the C object files 
 #

@@ -22,9 +22,9 @@ public:
 	~ServerSocket(){}
 };
 
-int main()
-{
-	ServerSocket * sc = new ServerSocket();
-	sc->Listen();
-  return 0;
-}
+// int main()
+// {
+// 	ServerSocket * sc = new ServerSocket();
+// 	sc->Listen();
+//   return 0;
+// }
