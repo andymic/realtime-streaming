@@ -17,6 +17,8 @@
 using namespace std;
 using namespace cv;
 
+static bool isWindowCreated = false;
+static int cnt = 0;
 ServerSocket::ServerSocket()
 {
    sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -81,7 +83,13 @@ void ServerSocket::Listen()
       if (pid == 0)
       {
          cout<<"Existing Process id: "<<pid<<endl;       
-         BroadcastStream(newsockfd);
+         int keepAlive = BroadcastStream(newsockfd);
+
+         if(keepAlive == -1)
+         {
+            close(sockfd);
+            return;
+         }
          //exit(0);
       }
       else
@@ -90,24 +98,64 @@ void ServerSocket::Listen()
       }
    }
 }
-
-void ServerSocket::BroadcastStream(int socket)
+void ServerSocket::CreateWindow()
 {
-   uchar frame_data[1024];
+   // cout<<"New window created"<<endl;
+   // namedWindow("Kitkat Server", WINDOW_KEEPRATIO);
+}
+int ServerSocket::BroadcastStream(int socket)
+{
+   cout<<"Broadcast entered: "<<cnt++<<endl;
+   Mat frame;
+   frame = Mat::zeros(480 , 640, CV_8UC1);
+   int frame_size = frame.total() * frame.elemSize();
+   uchar * frame_data_ptr = frame.data;
+   int error;
 
-   while(read(socket, frame_data, 1024))
+   // if(!frame.isContinuous())
+   //      frame = frame.clone();
+
+   // if(!isWindowCreated)
+   // {
+   //    CreateWindow();
+   //    isWindowCreated = true;
+   // }  
+
+   cout<<"New window created"<<endl;
+   namedWindow("Kitkat Server", WINDOW_KEEPRATIO);
+   char key;
+   cout<<"Expected Frame size from server socket: "<<frame_size<<endl;
+   while(key != 'q')
    {
-      //Mat img(Size(720, 720), CV_8UC3, frame_data);
-      cout<<frame_data<<endl;
-      //imshow("Kitkat Server", img);
+      if((error = recv(socket, frame_data_ptr, frame_size, MSG_WAITALL)) < 0)
+            cerr<<"ERROR reading socket on the server :"<<error<<endl;
 
-        //following up each draw with waitKey so that
-        // highgui has time to process the draw request
-        //waitKey(30);
+       imshow("Kitkat Server", frame);
+      key =(char)waitKey(60);
 
-        //if(key == 'q')
-          //return 1;
+      cout<<"Frame size read from socket"<< error<<endl;
+      if(key == 'q')
+         return -1;
    }
+
+   // while((error = recv(socket, frame_data_ptr, frame_size, MSG_WAITALL)) > 0)
+   // {
+   //    //Mat img(Size(720, 720), CV_8UC3, frame_data);
+   //    //cout<<frame_data<<endl;
+   //    imshow("Kitkat Server", frame);
+
+   //      //following up each draw with waitKey so that
+   //      // highgui has time to process the draw request
+   //      char key =(char)waitKey(60);
+
+   //      if(key == 'q')
+   //        exit(0);
+   // }
+
+   // if(error < 0)
+   //    cerr<<"ERROR reading socket on the server: "<<error<<endl;
+
+   return 1;
 }
 void ServerSocket::EchoClient(int socket)
 {

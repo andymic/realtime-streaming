@@ -33,6 +33,7 @@ void LaunchClient()
 	// 	this_thread::sleep_for (chrono::seconds(1));
 	// }
     k->SendVideoToServer("0", vid_path, 5001);
+    //k->ReadVideo(vid_path);
 }
 int main( int argc, char** argv )
 {

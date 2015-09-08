@@ -85,12 +85,13 @@ int ClientSocket::ReadResponse()
 int ClientSocket::SendStream(Mat frame, int len)
 {
 	/* Send frame to the server */
-     int mes = write(sockfd, frame.data, len);
+     int mes = send(sockfd, frame.data, len, 0);
      
 
      if (mes < 0)
      {
-        cerr<<"ERROR writing to socket";
+        cerr<<"ERROR writing to socket:"<<mes;
+
         return (false);
      }
 

@@ -16,7 +16,8 @@ private:
     struct sockaddr_in serv_addr, cli_addr;
     void BindToAddress();  
     void EchoClient(int socket);
-    void BroadcastStream(int socket);
+    int BroadcastStream(int socket);
+    void CreateWindow();
 public:
 	ServerSocket();
 	void Listen();

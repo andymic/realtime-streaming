@@ -51,7 +51,7 @@ int KitKatClient::ReadVideo(const string & filename)
       VideoCapture capture(filename);
  
       namedWindow(window_name, WINDOW_KEEPRATIO);
-      Mat frame;
+      Mat frame = Mat::zeros(480 , 640, CV_8UC1);
 
       for(;;)
       {
@@ -68,6 +68,8 @@ int KitKatClient::ReadVideo(const string & filename)
         if(key == 'q')
           return 1;
       }
+
+    
     }
     else
     {
@@ -82,11 +84,16 @@ bool KitKatClient::SendVideoToServer(const char * addr, const string & filepath,
 	if(FileExist(filepath.c_str()))
     {
       VideoCapture capture(filepath);
-      Mat frame;
+
+      Mat frame = Mat::zeros(480 , 640, CV_8UC1);
+
       ClientSocket * cs = new ClientSocket(addr, port);
       cs->Connect();
 
-      int frame_len;
+      int frame_size;
+
+      if(!frame.isContinuous())
+        frame = frame.clone();
 
       for(;;)
       {
@@ -94,16 +101,30 @@ bool KitKatClient::SendVideoToServer(const char * addr, const string & filepath,
         if(frame.empty())
           break;
 
-        
-        // if(frame.isContinuous())
-        // {
-        //   size_t sizeInBytes = frame.total() * frame.elemsize();
-        // }
-        frame = (frame.reshape(0,1)); 
 
-        frame_len =frame.total()*frame.elemSize();
+        //frame = (frame.reshape(0,1)); 
 
-        cs->SendStream(frame, frame_len);
+        frame_size =frame.total()*frame.elemSize();
+
+        if(frame_size > 307200)
+        {
+          uchar * frame_ptr = frame.data;
+
+          for(int i=0; i<frame_size/307200; i++)
+          {
+            Mat * small_frame;
+
+            memcpy(small_frame, frame_ptr, 307200);
+            frame_ptr = frame_ptr + 307200;
+
+            cs->SendStream(*small_frame, 307200);
+          }
+        }
+        else
+        {
+          cs->SendStream(frame, frame_size);
+        }
+        cout<<"Frame size: "<<frame_size<<" Width: "<<capture.get(CV_CAP_PROP_FRAME_WIDTH)<<" Height: "<<capture.get(CV_CAP_PROP_FRAME_HEIGHT)<<endl;
       }
     }
     else
