@@ -12,7 +12,7 @@
 #include <string>
 
 #define img_path "/home/andy/Pictures/rockon.jpg"
-#define vid_path "/home/andy/Videos/Moving Takahashi-HD.mp4"
+#define vid_path "/home/andy/Videos/dfs.avi"
 
 using namespace std;
 
@@ -37,10 +37,8 @@ void LaunchClient()
 }
 int main( int argc, char** argv )
 {
-
-     //;
 	string arg = argv[1];
-     //thread t2(LaunchClient);
+
 	if(arg =="server")
 		LaunchServer();
 	else if(arg =="client")

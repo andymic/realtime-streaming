@@ -59,6 +59,7 @@ int KitKatClient::ReadVideo(const string & filename)
         if(frame.empty())
           break;
 
+        //cout<<"frame data sent from the client: "<<frame<<endl;
         imshow(window_name, frame);
 
         //following up each draw with waitKey so that
@@ -85,7 +86,7 @@ bool KitKatClient::SendVideoToServer(const char * addr, const string & filepath,
     {
       VideoCapture capture(filepath);
 
-      Mat frame = Mat::zeros(480 , 640, CV_8UC1);
+      Mat frame = Mat::zeros(720 , 720, CV_8UC1);
 
       ClientSocket * cs = new ClientSocket(addr, port);
       cs->Connect();
@@ -95,36 +96,18 @@ bool KitKatClient::SendVideoToServer(const char * addr, const string & filepath,
       if(!frame.isContinuous())
         frame = frame.clone();
 
+      frame_size =frame.total()*frame.elemSize();
+      
       for(;;)
       {
         capture >> frame;
         if(frame.empty())
           break;
 
+        //cout<<"frame data sent from the client: "<<frame<<endl;
 
-        //frame = (frame.reshape(0,1)); 
-
-        frame_size =frame.total()*frame.elemSize();
-
-        if(frame_size > 307200)
-        {
-          uchar * frame_ptr = frame.data;
-
-          for(int i=0; i<frame_size/307200; i++)
-          {
-            Mat * small_frame;
-
-            memcpy(small_frame, frame_ptr, 307200);
-            frame_ptr = frame_ptr + 307200;
-
-            cs->SendStream(*small_frame, 307200);
-          }
-        }
-        else
-        {
-          cs->SendStream(frame, frame_size);
-        }
-        cout<<"Frame size: "<<frame_size<<" Width: "<<capture.get(CV_CAP_PROP_FRAME_WIDTH)<<" Height: "<<capture.get(CV_CAP_PROP_FRAME_HEIGHT)<<endl;
+        cs->SendStream(frame, frame_size);
+        //cout<<"Frame size: "<<frame_size<<" Width: "<<capture.get(CV_CAP_PROP_FRAME_WIDTH)<<" Height: "<<capture.get(CV_CAP_PROP_FRAME_HEIGHT)<<endl;
       }
     }
     else

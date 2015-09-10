@@ -84,6 +84,7 @@ int ClientSocket::ReadResponse()
 
 int ClientSocket::SendStream(Mat frame, int len)
 {
+    
 	/* Send frame to the server */
      int mes = send(sockfd, frame.data, len, 0);
      
@@ -96,4 +97,9 @@ int ClientSocket::SendStream(Mat frame, int len)
      }
 
      return (true);
+}
+
+ClientSocket::~ClientSocket()
+{
+    close(sockfd);
 }

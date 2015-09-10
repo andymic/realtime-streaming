@@ -14,9 +14,18 @@
 #include <string>
 #include <cstring>
 #include <vector>
+#include <iostream>
 
 bool KitKatServer::Listen()
 {
 	ServerSocket * sc = new ServerSocket();
-    sc->Listen();
+    int key = sc->Listen();
+
+    if(key == -1)
+    {
+    	std::cout<<"request stream shutdown"<<std::endl;
+    	return false;
+    }
+
+    return true;
 }

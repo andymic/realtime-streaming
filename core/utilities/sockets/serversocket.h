@@ -17,10 +17,9 @@ private:
     void BindToAddress();  
     void EchoClient(int socket);
     int BroadcastStream(int socket);
-    void CreateWindow();
 public:
 	ServerSocket();
-	void Listen();
+	int Listen();
 	~ServerSocket();
 };
 

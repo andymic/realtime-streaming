@@ -27,7 +27,7 @@ public:
 	int SendMessage(const char * buffer);
 	int ReadResponse();
 	int SendStream(Mat frame, int len);
-	~ClientSocket(){}
+	~ClientSocket();
 };
 
 // int main()
