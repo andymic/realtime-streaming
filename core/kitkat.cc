@@ -11,29 +11,25 @@
 #include <chrono> 
 #include <string>
 
-#define img_path "/home/andy/Pictures/rockon.jpg"
-#define vid_path "/home/andy/Videos/dfs.avi"
+#define vid_path "/home/andy/Videos/Moving Takahashi-HD.mp4"
 
 using namespace std;
 
+const char * ip = "127.0.0.1";
+int port = 5136;
+
 void LaunchServer()
 {
+
 	cout<<"Kitkatserver starting..."<<endl;
 	KitKatServer * s = new KitKatServer();
-	s->Listen();
+	s->BroadCast(ip, port);
 }
 
 void LaunchClient()
 {
 	KitKatClient * k = new KitKatClient();
-	// for(int i=0; i<100; i++)
-	// {
-
-	// 	k->SendMessage("0", 5001, "Test message from client");
-	// 	this_thread::sleep_for (chrono::seconds(1));
-	// }
-    k->SendVideoToServer("0", vid_path, 5001);
-    //k->ReadVideo(vid_path);
+    k->SendVideoToServer(ip, port, vid_path);
 }
 int main( int argc, char** argv )
 {

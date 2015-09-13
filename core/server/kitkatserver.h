@@ -10,10 +10,8 @@
 #include <string.h>
 
 class KitKatServer{
-private:
-	bool FileExist(const char *filename);
 public:
 	KitKatServer(){}
-	bool Listen();
+	void BroadCast(const char * ip, int port);
 	~KitKatServer(){}
 };

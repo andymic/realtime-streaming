@@ -16,7 +16,7 @@ public:
 	KitKatClient(){}
 	int ShowImage(const char * path);
 	int ReadVideo(const std::string & filename);
-	bool SendVideoToServer(const char * addr, const std::string & filepath, int port);
+	bool SendVideoToServer(const char * addr, int port, const std::string & filepath);
 	void SendMessage(const char * adr, int port, const char * message);
 	~KitKatClient(){}
 };

@@ -26,7 +26,7 @@ public:
 	bool Connect();
 	int SendMessage(const char * buffer);
 	int ReadResponse();
-	int SendStream(Mat frame, int len);
+	int SendStream(Mat mat, int mat_size);
 	~ClientSocket();
 };
 

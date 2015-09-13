@@ -11,21 +11,20 @@
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/videoio/videoio.hpp>
 #include <fstream>
-#include <string>
+#include <string.h>
 #include <cstring>
 #include <vector>
 #include <iostream>
 
-bool KitKatServer::Listen()
+
+void KitKatServer::BroadCast(const char * ip, int port)
 {
-	ServerSocket * sc = new ServerSocket();
-    int key = sc->Listen();
+    ServerSocket * sc = new ServerSocket(ip, port);
+    int key = sc->BroadcastStream();
 
     if(key == -1)
     {
-    	std::cout<<"request stream shutdown"<<std::endl;
-    	return false;
+        std::cout<<"request stream shutdown"<<std::endl;
+        exit(1);
     }
-
-    return true;
 }

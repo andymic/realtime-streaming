@@ -16,10 +16,10 @@ private:
     struct sockaddr_in serv_addr, cli_addr;
     void BindToAddress();  
     void EchoClient(int socket);
-    int BroadcastStream(int socket);
 public:
-	ServerSocket();
+	ServerSocket(const char * ip, int port);
 	int Listen();
+	int BroadcastStream();
 	~ServerSocket();
 };
 
