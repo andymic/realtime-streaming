@@ -10,7 +10,7 @@ Motivation:
 ~~~~~~~~~~~
 Was bitten by a c++ bug on labor day and felt the need to learn about sockets and play with opencv.
 
-![alt tag](https://github.com/Andymic/Streaming-Video-Over-UDP/kitkat.gif)
+![example](https://raw.githubusercontent.com/Andymic/Streaming-Video-Over-UDP/master/kitkat.gif)
 
 Instructions:
 ~~~~~~~~~~~~
