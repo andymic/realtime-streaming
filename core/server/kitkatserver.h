@@ -10,8 +10,10 @@
 #include <string.h>
 
 class KitKatServer{
+private:
+	ServerSocket * server_sock;
 public:
-	KitKatServer(){}
+	KitKatServer(const char * ip, int port);
 	void BroadCast(const char * ip, int port);
 	~KitKatServer(){}
 };

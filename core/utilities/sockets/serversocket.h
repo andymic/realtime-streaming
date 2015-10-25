@@ -2,7 +2,7 @@
 // Name        : serversocket.h
 // Author      : Andy
 // Version     : 1.0
-// Copyright   : Use this code at your own risk...your pants may fall off!
+// Copyright   : this code is provided "AS IS"
 // Description : OpenCV experimentation in C++, Ansi-style
 //============================================================================
 #pragma once
@@ -13,19 +13,11 @@
 class ServerSocket{
 private:
 	int sockfd, portno;
-    struct sockaddr_in serv_addr, cli_addr;
-    void BindToAddress();  
-    void EchoClient(int socket);
+    struct sockaddr_in serv_addr;
+    void BindToAddress(const char * ip, int port);  
 public:
 	ServerSocket(const char * ip, int port);
-	int Listen();
-	int BroadcastStream();
+	void CaptureStream();
+	void BroadcastStream(const char * ip, int port);
 	~ServerSocket();
 };
-
-// int main()
-// {
-// 	ServerSocket * sc = new ServerSocket();
-// 	sc->Listen();
-//   return 0;
-// }

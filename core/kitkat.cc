@@ -16,20 +16,20 @@
 using namespace std;
 
 const char * ip = "127.0.0.1";
-int port = 5136;
+int port_cp = 5134, port_bd = 5136;
 
 void LaunchServer()
 {
 
 	cout<<"Kitkatserver starting..."<<endl;
-	KitKatServer * s = new KitKatServer();
-	s->BroadCast(ip, port);
+	KitKatServer * s = new KitKatServer(ip, port_cp);
+	s->BroadCast(ip, port_bd);
 }
 
 void LaunchClient()
 {
 	KitKatClient * k = new KitKatClient();
-    k->SendVideoToServer(ip, port, vid_path);
+    k->SendVideoToServer(ip, port_cp, vid_path);
 }
 int main( int argc, char** argv )
 {

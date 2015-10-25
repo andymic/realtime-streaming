@@ -17,14 +17,11 @@
 #include <iostream>
 
 
-void KitKatServer::BroadCast(const char * ip, int port)
+KitKatServer::KitKatServer(const char * ip, int port)
 {
-    ServerSocket * sc = new ServerSocket(ip, port);
-    int key = sc->BroadcastStream();
-
-    if(key == -1)
-    {
-        std::cout<<"request stream shutdown"<<std::endl;
-        exit(1);
-    }
+	server_sock = new ServerSocket(ip, port);
+}
+void KitKatServer::BroadCast(const char * ip, int port)
+{    
+    server_sock->BroadcastStream(ip, port);
 }
