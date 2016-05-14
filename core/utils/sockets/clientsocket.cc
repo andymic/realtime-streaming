@@ -1,8 +1,8 @@
 //============================================================================
-// Name : clientsocket.cc
-// Author  : Andy
-// Version : 1.0
-// Copyright  : Use this code at your own risk...your pants may fall off!
+// Name        : clientsocket.cc
+// Author      : Andy Michel
+// Version     : 1.1
+// Copyright   : this code is provided "AS IS"
 // Description : OpenCV experimentation in C++, Ansi-style
 //============================================================================
 #include "clientsocket.h"
@@ -10,8 +10,6 @@
 #include <unistd.h> //read & write g++
 #include <cstdlib>
 #include <arpa/inet.h>
-#include <thread>
-#include <chrono> 
 
 using namespace std;
 using namespace cv;
@@ -85,8 +83,6 @@ void ClientSocket::CaptureStream(const char * _ip, int _port){
     char key;
     bool started = false;
     
-        this_thread::sleep_for(chrono::milliseconds(2000));
-    return;
     namedWindow("Kitkat Client", WINDOW_KEEPRATIO);
     
     cout<<TAG<<"Polling for stream from server..."<<endl;

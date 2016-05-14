@@ -1,8 +1,8 @@
 //============================================================================
 // Name        : kitkat.cc
-// Author      : Andy
-// Version     : 1.0
-// Copyright   : Use this code at your own risk...your pants may fall off!
+// Author      : Andy Michel
+// Version     : 1.1
+// Copyright   : this code is provided "AS IS"
 // Description : OpenCV experimentation in C++, Ansi-style
 //============================================================================
 #include <../client/kitkatclient.h>
@@ -21,12 +21,10 @@ const char * broadcast_ip = "127.0.0.1";
 int recv_port = 5134, brd_port = 5136;
 
 void LaunchServer()
-{
-	
+{	
 	KitKatServer * s = new KitKatServer(receving_ip, recv_port);
 	s->BroadCast(broadcast_ip, brd_port);
 	delete s;
-	
 }
 
 void LaunchClient()

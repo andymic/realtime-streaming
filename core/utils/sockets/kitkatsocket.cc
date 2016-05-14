@@ -1,3 +1,10 @@
+//============================================================================
+// Name        : kitkatclient.cc
+// Author      : Andy Michel
+// Version     : 1.1
+// Copyright   : this code is provided "AS IS"
+// Description : OpenCV experimentation in C++, Ansi-style
+//============================================================================
 #include "kitkatsocket.h"
 #include <iostream>
 #include <unistd.h> //read & write g++

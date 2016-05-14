@@ -1,8 +1,8 @@
 //============================================================================
-// Name : kitkatsocket.h
-// Author  : Andy
-// Version : 1.0
-// Copyright  : Use this code at your own risk!
+// Name        : kitkatclient.h
+// Author      : Andy Michel
+// Version     : 1.1
+// Copyright   : this code is provided "AS IS"
 // Description : OpenCV experimentation in C++, Ansi-style
 //============================================================================
 #include <netdb.h>

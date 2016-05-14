@@ -1,8 +1,8 @@
 //============================================================================
 // Name        : kitkatserver.h
-// Author      : Andy
-// Version     : 1.0
-// Copyright   : Use this code at your own risk...your pants may fall off!
+// Author      : Andy Michel
+// Version     : 1.1
+// Copyright   : this code is provided "AS IS"
 // Description : OpenCV experimentation in C++, Ansi-style
 //============================================================================
 #pragma once
