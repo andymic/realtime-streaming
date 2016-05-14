@@ -6,9 +6,9 @@ CC = g++
 #  -Wall turns on most, but not all, compiler warnings
 CFLAGS  = -g -Wall -std=c++11 -pthread 
 RFLAGS  = -Wall 
-PROJECT_PATH = /home/andy/Documents/Projects/kitkat/core
+PROJECT_PATH = /kitkat/core
 # define any directories containing header files other than /usr/include
-INCLUDES = -I/usr/local/include/opencv -I$(PROJECT_PATH)/client -I$(PROJECT_PATH)/server -I$(PROJECT_PATH)/utilities/sockets
+INCLUDES = -I/usr/local/include/opencv -I$(PROJECT_PATH)/client -I$(PROJECT_PATH)/server -I$(PROJECT_PATH)/utils/sockets
 # define library paths in addition to /usr/lib
 LFLAGS = -L/usr/local/lib 
 
@@ -20,8 +20,8 @@ LIBS = -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml -lopencv_vide
 # define the C++ source files
 CLIENT_PATH = $(PROJECT_PATH)/client
 SERVER_PATH = $(PROJECT_PATH)/server
-SOCKETS_UTILITY_PATH = $(PROJECT_PATH)/utilities/sockets
-SRCS = kitkat.cc $(CLIENT_PATH)/kitkatclient.cc $(SERVER_PATH)/kitkatserver.cc $(SOCKETS_UTILITY_PATH)/clientsocket.cc $(SOCKETS_UTILITY_PATH)/serversocket.cc 
+SOCKETS_UTILITY_PATH = $(PROJECT_PATH)/utils/sockets
+SRCS = kitkat.cc $(CLIENT_PATH)/kitkatclient.cc $(SERVER_PATH)/kitkatserver.cc  $(SOCKETS_UTILITY_PATH)/kitkatsocket.cc $(SOCKETS_UTILITY_PATH)/clientsocket.cc $(SOCKETS_UTILITY_PATH)/serversocket.cc 
 
 # define the C object files 
 #
@@ -33,8 +33,9 @@ SRCS = kitkat.cc $(CLIENT_PATH)/kitkatclient.cc $(SERVER_PATH)/kitkatserver.cc $
 #
 OBJS = $(SRCS:.cc=.o)
 
+DIRS = $(SOCKETS_UTILITY_PATH) $(CLIENT_PATH) $(SERVER_PATH) 
 # define the executable file 
-MAIN = K
+MAIN = kitkat
 RELEASE = R
 #
 # The following part of the makefile is generic; it can be used to 
@@ -61,8 +62,10 @@ $(RELEASE): $(OBJS)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $<  -o $@
 
 clean:
-	$(RM) *.o *~ $(MAIN)
-
+	-$(RM) *.o $(MAIN)
+	-for d in $(DIRS); do (cd $$d; $(MAKE) clean); done
+	
+	
 depend: $(SRCS)
 	makedepend $(INCLUDES) $^
 

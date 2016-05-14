@@ -6,7 +6,7 @@
 // Description : OpenCV experimentation in C++, Ansi-style
 //============================================================================
 #pragma once
-#include <../utilities/sockets/serversocket.h>
+#include <../utils/sockets/serversocket.h>
 #include <string.h>
 
 class KitKatServer{
@@ -14,6 +14,7 @@ private:
 	ServerSocket * server_sock;
 public:
 	KitKatServer(const char * ip, int port);
+	void PollForStream();
 	void BroadCast(const char * ip, int port);
-	~KitKatServer(){}
+	~KitKatServer();
 };

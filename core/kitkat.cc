@@ -11,25 +11,30 @@
 #include <chrono> 
 #include <string>
 
-#define vid_path "/home/andy/Videos/Moving Takahashi-HD.mp4"
+#define vid_path ""
 
 using namespace std;
 
-const char * ip = "127.0.0.1";
-int port_cp = 5134, port_bd = 5136;
+const char * receving_ip = "192.x.x.x"; //stream sent android camera
+const char * broadcast_ip = "127.0.0.1";
+
+int recv_port = 5134, brd_port = 5136;
 
 void LaunchServer()
 {
-
-	cout<<"Kitkatserver starting..."<<endl;
-	KitKatServer * s = new KitKatServer(ip, port_cp);
-	s->BroadCast(ip, port_bd);
+	
+	KitKatServer * s = new KitKatServer(receving_ip, recv_port);
+	s->BroadCast(broadcast_ip, brd_port);
+	delete s;
+	
 }
 
 void LaunchClient()
 {
 	KitKatClient * k = new KitKatClient();
-    k->SendVideoToServer(ip, port_cp, vid_path);
+	//k->SendVideoToServer(ip, port_cp, vid_path);
+	k->ReadStreamFromServer("127.0.0.1", brd_port);
+	delete k;
 }
 int main( int argc, char** argv )
 {

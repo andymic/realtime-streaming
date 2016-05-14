@@ -5,19 +5,17 @@
 // Copyright   : this code is provided "AS IS"
 // Description : OpenCV experimentation in C++, Ansi-style
 //============================================================================
-#pragma once
+#include "kitkatsocket.h"
 #include <netdb.h>
 #include <netinet/in.h>
 #include <string.h>
 
-class ServerSocket{
+class ServerSocket : public KitKatSocket{
 private:
-	int sockfd, portno;
-    struct sockaddr_in serv_addr;
-    void BindToAddress(const char * ip, int port);  
+    struct sockaddr_in serv_addr_out; 
 public:
 	ServerSocket(const char * ip, int port);
-	void CaptureStream();
+	void PollForStream();
 	void BroadcastStream(const char * ip, int port);
 	~ServerSocket();
 };
